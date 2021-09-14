@@ -26,7 +26,7 @@ const _styles = StyleSheet.create({
   buttonTextStyle: {
     color: '#FFFFFF',
     fontSize: 20,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   },
   modalText: {
     marginBottom: 20,

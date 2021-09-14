@@ -202,8 +202,10 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 20,
+    width: SIZES.width * 0.6,
     color: COLORS.black,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   mainContainer: {
     backgroundColor: COLORS.white,
