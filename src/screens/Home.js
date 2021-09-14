@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {icons, images, SIZES, COLORS, FONTS} from '../constants';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import LinearGradient from 'react-native-linear-gradient';
 import Star from 'react-native-star-view';
 import _styles from '../constants/styling';
 import Button from '../components/Button';
@@ -60,7 +59,9 @@ export default function Home({navigation}) {
         <View style={[_styles.rowFlexAround, styles.header]}>
           <Icon name="grain" size={40} color={COLORS.black} />
           <Text style={styles.headerText}>Fashion App</Text>
-          <Icon name="camera-party-mode" size={40} color={COLORS.black} />
+          <TouchableOpacity onPress={() => navigation.navigate('Measurements')}>
+            <Icon name="camera-party-mode" size={40} color={COLORS.black} />
+          </TouchableOpacity>
         </View>
         {/* <View style={{marginLeft: 15, marginTop: 10}}>
           <Text style={styles.title2}>Find your {'\n'}match style!</Text>

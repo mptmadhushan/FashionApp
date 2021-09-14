@@ -5,6 +5,7 @@ import OnBoard from '../screens/OnBoard';
 import LogIn from '../screens/LogIn';
 import Home from '../screens/Home';
 import Register from '../screens/Register';
+import Measurements from '../screens/Measurements';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
@@ -36,6 +37,11 @@ function MainStackNavigator() {
           name="Register"
           options={{headerShown: false}}
           component={Register}
+        />
+        <Stack.Screen
+          name="Measurements"
+          options={{headerShown: false}}
+          component={Measurements}
         />
       </Stack.Navigator>
     </NavigationContainer>
