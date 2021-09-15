@@ -3,12 +3,14 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {RNCamera} from 'react-native-camera';
+// import {BASE_URL} from '../../Config/index';
+// import AsyncStorage from '@react-native-community/async-storage';
+import Spinner from 'react-native-loading-spinner-overlay';
 import * as ImagePicker from 'react-native-image-picker';
 import {icons, images, SIZES, COLORS, FONTS} from '../constants';
 import LinearGradient from 'react-native-linear-gradient';
 import _styles from '../constants/styling';
 import Button from '../components/Button';
-
 const MainScreen = ({routes, navigation}) => {
   let camera;
   const [spinner, setSpinner] = useState(false);
@@ -174,13 +176,6 @@ const styles = StyleSheet.create({
     marginTop: -SIZES.height * 0.2,
     height: SIZES.height * 0.7,
   },
-  name: {
-    color: COLORS.darkgray,
-    fontSize: 17,
-    marginLeft: 10,
-    width: '100%',
-    textAlign: 'left',
-  },
   rowFlex: {
     marginTop: SIZES.height * 0.2,
     flexDirection: 'row',
@@ -189,19 +184,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
   },
+  name: {
+    color: COLORS.darkgray,
+    fontSize: 17,
+    marginLeft: 10,
+    width: '100%',
+    textAlign: 'left',
+  },
   text001: {
     color: COLORS.white,
     fontSize: 15,
   },
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     flexDirection: 'column',
     backgroundColor: COLORS.black,
+  },
+  slide1: {
+    backgroundColor: COLORS.primary,
+    borderRadius: 10,
     alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
+    width: SIZES.width * 0.2,
+    maxHeight: SIZES.width * 0.15,
   },
   confirmCard: {
-    marginTop: SIZES.height * 0.1,
+    marginTop: SIZES.height * 0.33,
+    marginLeft: SIZES.width * 0.1,
     paddingTop: 20,
     height: SIZES.height * 0.2,
     width: SIZES.width * 0.8,

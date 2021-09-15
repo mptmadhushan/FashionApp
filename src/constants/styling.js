@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
 import {COLORS, SIZES} from './theme';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const _styles = StyleSheet.create({
   centeredView: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',

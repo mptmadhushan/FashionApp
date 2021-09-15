@@ -16,40 +16,24 @@ import Button from '../components/Button';
 
 export default function Home({navigation}) {
   useEffect(() => {}, []);
-  const Designers = [
-    {
-      name: 'Obie Ankunding',
-      image: require('../assets/2.jpg'),
-      rating: '3',
-    },
-    {
-      name: 'Granville Ferry',
-      image: require('../assets/1.jpg'),
-      rating: '4',
-    },
-    {
-      name: 'Karine Wilfredo',
-      image: require('../assets/4.jpg'),
-      rating: '2',
-    },
-  ];
+
   const MostIt = [
     {
-      name: 'Obie Ankunding',
+      name: 'Kandian',
       des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
-      image: require('../assets/3.jpg'),
+      image: require('../assets/4.jpg'),
       rating: '3219.20',
     },
     {
-      name: 'Granville Ferry',
+      name: 'Western',
       des: 'Labore occaecat ex ex eu laborum.',
-      image: require('../assets/6.jpg'),
+      image: require('../assets/1.jpg'),
       rating: '4000.21',
     },
     {
-      name: 'Karine Wilfredo',
+      name: 'Indian',
       des: 'Fugiat ex in eiusmod sunt.',
-      image: require('../assets/5.jpg'),
+      image: require('../assets/7.jpg'),
       rating: '2403.00',
     },
   ];
@@ -60,41 +44,49 @@ export default function Home({navigation}) {
           <Icon name="grain" size={40} color={COLORS.black} />
           <Text style={styles.headerText}>Fashion App</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Measurements')}>
-            <Icon name="camera-party-mode" size={30} color={COLORS.white} />
+            <Icon name="camera-party-mode" size={40} color={COLORS.black} />
           </TouchableOpacity>
         </View>
-        {/* <View style={{marginLeft: 15, marginTop: 10}}>
-          <Text style={styles.title2}>Find your {'\n'}match style!</Text>
-        </View> */}
-        <View>
-          <Text style={styles.title3}>Top Rated Designers</Text>
-          <ScrollView horizontal={true}>
-            {Designers
-              ? Designers.map(item => {
-                  return (
-                    <View style={styles.cardBg} key={item.name}>
-                      <Image
-                        source={item.image}
-                        resizeMode="contain"
-                        style={{
-                          width: SIZES.width * 0.5,
-                          height: SIZES.width * 0.4,
-                          borderBottomRightRadius: 50,
-                          borderBottomLeftRadius: 50,
-                        }}
-                      />
-                      <Text>{item.name}</Text>
-                      <View style={_styles.rowFlexAround}>
-                        <Star score={item.rating} style={styles.starStyle} />
-                      </View>
-                    </View>
-                  );
-                })
-              : null}
-          </ScrollView>
+        <View style={_styles.centeredView}>
+          <View style={styles.search}>
+            <View style={_styles.rowFlexAround}>
+              <Icon name="magnify" size={30} color={COLORS.darkgray} />
+              <Text
+                style={{
+                  color: COLORS.darkgray,
+                  fontSize: 15,
+                  // fontWeight: 'bold',
+                  marginLeft: 20,
+                }}>
+                Search Dress Types
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View style={_styles.centeredView}>
+          <View style={styles.banner}>
+            <View style={_styles.rowFlexAround}>
+              <View>
+                <Text style={styles.title2}>Last Discount</Text>
+                <Text style={styles.dis}>Up to 70%</Text>
+                <Text style={styles.des}>
+                  Shop now & Get Free {'\n'}shipping to your house
+                </Text>
+              </View>
+              <Image
+                source={images.discount2}
+                resizeMode="contain"
+                style={{
+                  width: SIZES.width * 0.4,
+                  height: SIZES.width * 0.4,
+                }}
+              />
+            </View>
+          </View>
         </View>
         <View>
-          <Text style={styles.title3}>Most Viewed Items</Text>
+          <Text style={styles.title3}>Dress Type</Text>
+
           <ScrollView horizontal={true}>
             {MostIt
               ? MostIt.map(item => {
@@ -112,14 +104,7 @@ export default function Home({navigation}) {
                           padding: SIZES.width * 0.1,
                         }}
                       />
-                      <Text
-                        style={styles.des}
-                        numberOfLines={1}
-                        ellipsizeMode="tail">
-                        {item.des}
-                      </Text>
                       <Text style={styles.name}>{item.name}</Text>
-                      <Text style={styles.price}>LKR.{item.rating}</Text>
                     </View>
                   );
                 })
@@ -127,16 +112,19 @@ export default function Home({navigation}) {
           </ScrollView>
         </View>
       </View>
+      <View style={{marginTop: 10}}></View>
 
       <View style={_styles.rowFlexAround}>
-        <Button
-          text="Designers"
-          onPress={() => navigation.navigate('Category')}
-        />
-        <Button
-          text="Categories"
-          onPress={() => navigation.navigate('Category')}
-        />
+        <Text style={styles.detail}>Height: 6 inches</Text>
+        <Text style={styles.detail}>Hip: 28 inches</Text>
+        <Text style={styles.detail}>Skin: White</Text>
+      </View>
+      <View style={{marginTop: 10}}></View>
+
+      <View style={_styles.rowFlexAround}>
+        <Text style={styles.detail}>
+          Updated on: Sat Sep 19 2020 13:41:14 GMT+0530
+        </Text>
       </View>
     </View>
   );
@@ -160,38 +148,75 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
   },
+  banner: {
+    height: SIZES.height * 0.25,
+    margin: 10,
+    width: SIZES.width * 0.85,
+    justifyContent: 'center',
+    borderRadius: 60,
+    alignContent: 'center',
+    backgroundColor: COLORS.black,
+    alignItems: 'center',
+  },
+  search: {
+    height: 40,
+    margin: 10,
+    width: SIZES.width * 0.85,
+    justifyContent: 'center',
+    borderRadius: 20,
+    alignContent: 'flex-start',
+    backgroundColor: '#E8EAE2',
+    alignItems: 'flex-start',
+    paddingLeft: 35,
+  },
   header: {
     height: 40,
   },
   title2: {
-    color: COLORS.black,
+    color: COLORS.white,
     fontWeight: 'bold',
-    width: SIZES.width * 0.5,
-    fontSize: 20,
+    fontSize: 24,
     textAlign: 'left',
+    // width: '100%',
+    marginLeft: 50,
+  },
+  dis: {
+    color: COLORS.primary,
+    fontWeight: 'bold',
+    fontSize: 24,
+    textAlign: 'left',
+    // width: '100%',
+    marginLeft: 50,
   },
   title3: {
     color: COLORS.black,
     fontWeight: 'bold',
     padding: 5,
     paddingTop: 20,
-    fontSize: 15,
+    fontSize: 20,
     textAlign: 'left',
   },
   des: {
-    color: COLORS.black,
+    color: COLORS.darkgray,
     fontSize: 15,
-    width: '100%',
-    fontWeight: 'bold',
-    marginLeft: 10,
+    // width: '100%',
+    marginLeft: 50,
+    textAlign: 'left',
+  },
+  detail: {
+    color: COLORS.primary,
+    fontSize: 15,
+    // width: '100%',
     textAlign: 'left',
   },
   name: {
-    color: COLORS.darkgray,
+    color: COLORS.black,
     fontSize: 15,
     marginLeft: 10,
     width: '100%',
-    textAlign: 'left',
+    paddingTop: 10,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
   price: {
     color: COLORS.darkgray,
