@@ -9,6 +9,7 @@ import Measurements from '../screens/Measurements';
 import Category from '../screens/Category';
 import SubCategory from '../screens/SubCategory';
 import DesignerList from '../screens/DesignerList';
+import Designer from '../screens/Designer';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
@@ -17,7 +18,7 @@ function MainStackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="DesignerList"
+        initialRouteName="Designer"
         screenOptions={{
           headerShown: TapGestureHandler,
         }}>
@@ -60,6 +61,11 @@ function MainStackNavigator() {
           name="DesignerList"
           options={{headerShown: false}}
           component={DesignerList}
+        />
+        <Stack.Screen
+          name="Designer"
+          options={{headerShown: false}}
+          component={Designer}
         />
       </Stack.Navigator>
     </NavigationContainer>
