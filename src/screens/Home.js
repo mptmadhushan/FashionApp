@@ -60,7 +60,7 @@ export default function Home({navigation}) {
           <Icon name="grain" size={40} color={COLORS.black} />
           <Text style={styles.headerText}>Fashion App</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Measurements')}>
-            <Icon name="camera-party-mode" size={30} color={COLORS.white} />
+            <Icon name="camera-party-mode" size={30} color={COLORS.black} />
           </TouchableOpacity>
         </View>
         {/* <View style={{marginLeft: 15, marginTop: 10}}>
@@ -131,7 +131,7 @@ export default function Home({navigation}) {
       <View style={_styles.rowFlexAround}>
         <Button
           text="Designers"
-          onPress={() => navigation.navigate('Category')}
+          onPress={() => navigation.navigate('DesignerList')}
         />
         <Button
           text="Categories"

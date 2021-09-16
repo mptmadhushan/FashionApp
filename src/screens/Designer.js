@@ -14,6 +14,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Star from 'react-native-star-view';
 import _styles from '../constants/styling';
 import Button from '../components/Button';
+import Modal from 'react-native-modal';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function Designer({navigation}) {
   useEffect(() => {}, []);
@@ -40,6 +42,39 @@ export default function Designer({navigation}) {
   ];
   return (
     <View style={styles.container}>
+      <Modal isVisible={false}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <LinearGradient
+            // start={{x: 0.5, y: 0}}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 1}}
+            colors={[COLORS.black, COLORS.primary]}
+            style={styles.modalBg}>
+            <View style={{width: '100%', alignItems: 'flex-end'}}>
+              <Icon name="grain" size={40} color={COLORS.white} />
+            </View>
+            <Text style={styles.modalHeader}>Appointment</Text>
+            <View style={_styles.rowFlexBetween}>
+              <View>
+                <Text style={styles.modalText}>Designer Name</Text>
+                <Text style={styles.modalText}>Name </Text>
+                <Text style={styles.modalText}>Phone Number</Text>
+                <Text style={styles.modalText}>Email</Text>
+              </View>
+              <View>
+                <Text style={styles.modalText2}>: Obie Ankunding</Text>
+                <Text style={styles.modalText2}>: Kiera</Text>
+                <Text style={styles.modalText2}>: 714 906 4459</Text>
+                <Text style={styles.modalText2}>: obieankunding@gmail.com</Text>
+              </View>
+            </View>
+            <Button
+              text="Submit"
+              // onPress={() => setModalVisible(true)}
+            />
+          </LinearGradient>
+        </View>
+      </Modal>
       <View style={styles.mainContainer}>
         <View style={[_styles.rowFlexAround, styles.header]}>
           <Icon name="grain" size={40} color={COLORS.black} />
@@ -91,7 +126,7 @@ export default function Designer({navigation}) {
 
       <View style={_styles.rowFlexAround}>
         <View>
-          <Text style={styles.des}>Sub Total{'\n'}LKR.1200.00</Text>
+          <Text style={styles.des}>Total{'\n'}LKR.1200.00</Text>
         </View>
         <Button
           text="Make an Appointment"
@@ -145,10 +180,10 @@ const styles = StyleSheet.create({
   },
   des: {
     color: COLORS.white,
-    fontSize: 15,
+    fontSize: 12,
     width: '100%',
     fontWeight: 'bold',
-    marginTop: 10,
+    marginTop: 20,
     textAlign: 'left',
   },
   name: {
@@ -180,5 +215,38 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 30,
     borderBottomLeftRadius: 30,
     overflow: 'hidden',
+  },
+  modalBg: {
+    width: SIZES.width * 0.9,
+    // height: SIZES.height * 0.2,
+    padding: 10,
+    backgroundColor: COLORS.white,
+    shadowColor: COLORS.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4.84,
+    elevation: 15,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalHeader: {
+    color: COLORS.white,
+    padding: 5,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  modalText: {
+    color: COLORS.white,
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  modalText2: {
+    color: COLORS.white,
+    fontSize: 15,
+    marginLeft: 15,
   },
 });

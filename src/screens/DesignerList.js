@@ -66,7 +66,13 @@ export default function Home({navigation}) {
               buttonStyle={styles.dropdown4BtnStyle}
               buttonTextStyle={styles.dropdown4BtnTxtStyle}
               renderDropdownIcon={() => {
-                return <Icon name="grain" size={30} color={COLORS.black} />;
+                return (
+                  <Icon
+                    name="arrow-down-drop-circle"
+                    size={30}
+                    color={COLORS.primary}
+                  />
+                );
               }}
               dropdownIconPosition={'right'}
               dropdownStyle={styles.dropdown4DropdownStyle}
@@ -89,7 +95,13 @@ export default function Home({navigation}) {
               buttonStyle={styles.dropdown4BtnStyle}
               buttonTextStyle={styles.dropdown4BtnTxtStyle}
               renderDropdownIcon={() => {
-                return <Icon name="grain" size={30} color={COLORS.black} />;
+                return (
+                  <Icon
+                    name="arrow-down-drop-circle"
+                    size={30}
+                    color={COLORS.primary}
+                  />
+                );
               }}
               dropdownIconPosition={'right'}
               dropdownStyle={styles.dropdown4DropdownStyle}
@@ -114,7 +126,13 @@ export default function Home({navigation}) {
               buttonStyle={styles.dropdown4BtnStyle}
               buttonTextStyle={styles.dropdown4BtnTxtStyle}
               renderDropdownIcon={() => {
-                return <Icon name="grain" size={30} color={COLORS.black} />;
+                return (
+                  <Icon
+                    name="arrow-down-drop-circle"
+                    size={30}
+                    color={COLORS.primary}
+                  />
+                );
               }}
               dropdownIconPosition={'right'}
               dropdownStyle={styles.dropdown4DropdownStyle}
@@ -137,7 +155,13 @@ export default function Home({navigation}) {
               buttonStyle={styles.dropdown4BtnStyle}
               buttonTextStyle={styles.dropdown4BtnTxtStyle}
               renderDropdownIcon={() => {
-                return <Icon name="grain" size={30} color={COLORS.black} />;
+                return (
+                  <Icon
+                    name="arrow-down-drop-circle"
+                    size={20}
+                    color={COLORS.primary}
+                  />
+                );
               }}
               dropdownIconPosition={'right'}
               dropdownStyle={styles.dropdown4DropdownStyle}
@@ -316,7 +340,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: COLORS.white,
     width: SIZES.width,
-    height: SIZES.height * 0.85,
+    height: SIZES.height * 0.86,
     justifyContent: 'flex-start',
     borderBottomRightRadius: 30,
     borderBottomLeftRadius: 30,
@@ -431,16 +455,34 @@ const styles = StyleSheet.create({
     width: '40%',
     margin: 10,
     height: 40,
-    backgroundColor: '#FFF',
+    backgroundColor: COLORS.black,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#444',
+    shadowColor: COLORS.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4.84,
+    elevation: 15,
   },
-  dropdown4BtnTxtStyle: {color: '#444', textAlign: 'left'},
-  dropdown4DropdownStyle: {backgroundColor: '#EFEFEF'},
+  dropdown4BtnTxtStyle: {color: '#fff', textAlign: 'left', fontSize: 14},
+  dropdown4DropdownStyle: {
+    backgroundColor: COLORS.primary,
+    shadowColor: COLORS.black,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4.84,
+    elevation: 15,
+  },
   dropdown4RowStyle: {
     backgroundColor: '#EFEFEF',
-    borderBottomColor: '#C5C5C5',
+    // borderBottomColor: '#f4a',
   },
   dropdown4RowTxtStyle: {color: '#444', textAlign: 'left'},
 });
