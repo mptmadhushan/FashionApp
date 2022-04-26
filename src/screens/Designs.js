@@ -14,9 +14,50 @@ import Star from 'react-native-star-view';
 import _styles from '../constants/styling';
 import Button from '../components/Button';
 import SelectDropdown from 'react-native-select-dropdown';
-export default function Home({navigation}) {
-  useEffect(() => {}, []);
+const Designers = require('../constants/designer.json');
+import axios from 'axios';
+import * as ImagePicker from 'react-native-image-picker';
+import FastImage from 'react-native-fast-image';
+import AsyncStorage from '@react-native-community/async-storage';
 
+export default function Home({navigation}) {
+  useEffect(() => {
+    getUserToken();
+  }, []);
+
+  const [userData, setUser] = useState();
+
+  let result = Designers.map(a => a.location);
+  const getUserToken = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@userData');
+      if (value !== null) {
+        console.log('tag', value);
+        // const newVal = JSON.stringify(value);
+        setUser(value);
+        console.log('sate', userData);
+        // After restoring token, we may need to validate it
+        return value;
+      }
+    } catch (e) {
+      console.log('Error!!!!! (Handle me properly) -> ', e);
+    }
+  };
+  let unique = [...new Set(result)];
+  const [imageBase, setImage] = useState('');
+  const [resImage, setResImage] = useState('');
+  const [Designs, setDesigns] = useState('');
+  const event = ['interview', 'work', 'general', 'wedding', 'party'];
+  const dress_type = ['casual', 'work', 'normal', 'kandyan', 'party', 'casual'];
+  const article_type = [
+    'full dress',
+    'shirt',
+    'trouser',
+    'shorts',
+    'saree',
+    'frock',
+    'blouse',
+  ];
   const MostIt = [
     {
       name: 'Obie Ankunding',
@@ -37,7 +78,96 @@ export default function Home({navigation}) {
       rating: '2403.00',
     },
   ];
-  const countries = ['Egypt', 'Canada', 'Australia', 'Ireland'];
+  const handleSubmit = () => {
+    const reqData = {
+      gender: 'male',
+      event: 'work',
+      dress_type: 'formal',
+      article_type: 'full dress',
+      height: 160,
+      hip_size: 90,
+      img_url: 'data:image/jpeg;base64,' + imageBase,
+    };
+    // console.log('🚀 ~ f reqData', reqData);
+    axios
+      .post('https://fsrc1.herokuapp.com/v1/getSimilarDesigns', reqData)
+      .then(res => {
+        console.log('hhe 🚀', res.data);
+        setResImage(res.data.payload);
+        setDesigns(MostIt);
+      });
+  };
+  // const launchImageLibrary = () => {
+  //   let options = {
+  //     maxHeight: 250,
+  //     maxWidth: 350,
+  //     includeBase64: true, //add this in the option to include base64 value in the response
+  //   };
+  //   ImagePicker.showImagePicker(options, response => {
+  //     const base64Value = response.data;
+  //     console.log('base64Value', base64Value);
+  //   });
+  // };
+  const captureTradeLicenseImage = () => {
+    let options = {
+      maxHeight: 250,
+      maxWidth: 350,
+      includeBase64: true, //add this in the option to include base64 value in the response
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      setImage(response.assets[0].base64);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+    });
+  };
+  const launchImageLibrary = () => {
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+        includeBase64: true, //add this in the option to include base64 value in the response
+      },
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      console.log('Response = ', response.assets[0].uri);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        console.log('response-->', response);
+
+        // let formData = new FormData();
+        // formData.append('listFile', {
+        //   uri: response.assets[0].uri,
+        //   type: 'image/jpg',
+        //   name: 'image.jpg',
+        // });
+        // fetch(`{BASE_URL}`, {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'multipart/form-data',
+        //   },
+        //   body: formData,
+        // })
+        //   .then(response => response.json())
+        //   .then(response => {
+        //     console.log('response 🔥', response.flag);
+        //     console.log(response);
+        //     // storeData(response);
+        //   })
+        //   .catch(err => console.error(err));
+      }
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.mainContainer}>
@@ -49,14 +179,18 @@ export default function Home({navigation}) {
           </TouchableOpacity>
         </View>
         <View style={_styles.centeredView}>
+          <Button text="Designs" onPress={() => handleSubmit()} />
+        </View>
+
+        <View style={_styles.centeredView}>
           <View style={_styles.rowFlexAround}>
             <SelectDropdown
-              data={countries}
+              data={event}
               // defaultValueByIndex={1}
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
               }}
-              defaultButtonText={'Color Combination'}
+              defaultButtonText={'Events'}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
               }}
@@ -80,12 +214,12 @@ export default function Home({navigation}) {
               rowTextStyle={styles.dropdown4RowTxtStyle}
             />
             <SelectDropdown
-              data={countries}
+              data={dress_type}
               // defaultValueByIndex={1}
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
               }}
-              defaultButtonText={'Dress Combination'}
+              defaultButtonText={'Dress Type'}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
               }}
@@ -110,42 +244,18 @@ export default function Home({navigation}) {
             />
           </View>
           <View style={_styles.rowFlexAround}>
-            <SelectDropdown
-              data={countries}
-              // defaultValueByIndex={1}
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
-              }}
-              defaultButtonText={'Location'}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return selectedItem;
-              }}
-              rowTextForSelection={(item, index) => {
-                return item;
-              }}
-              buttonStyle={styles.dropdown4BtnStyle}
-              buttonTextStyle={styles.dropdown4BtnTxtStyle}
-              renderDropdownIcon={() => {
-                return (
-                  <Icon
-                    name="arrow-down-drop-circle"
-                    size={30}
-                    color={COLORS.primary}
-                  />
-                );
-              }}
-              dropdownIconPosition={'right'}
-              dropdownStyle={styles.dropdown4DropdownStyle}
-              rowStyle={styles.dropdown4RowStyle}
-              rowTextStyle={styles.dropdown4RowTxtStyle}
+            <Button
+              style={styles.dropdown4BtnStyle}
+              text="selectimage"
+              onPress={() => captureTradeLicenseImage()}
             />
             <SelectDropdown
-              data={countries}
+              data={article_type}
               // defaultValueByIndex={1}
               onSelect={(selectedItem, index) => {
                 console.log(selectedItem, index);
               }}
-              defaultButtonText={'Designer Ratings'}
+              defaultButtonText={'Article Type'}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
               }}
@@ -171,9 +281,24 @@ export default function Home({navigation}) {
           </View>
         </View>
         <View>
-          <ScrollView vertical={true}>
-            {MostIt
-              ? MostIt.map(item => {
+          <View style={_styles.centeredView}>
+            {resImage ? (
+              <FastImage
+                style={{
+                  width: SIZES.width * 0.9,
+                  height: SIZES.height * 0.5,
+                  marginTop: 20,
+                }}
+                source={{
+                  uri: resImage[0],
+                  headers: {Authorization: 'someAuthToken'},
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+              />
+            ) : null}
+            {Designs
+              ? Designs.map(item => {
                   return (
                     <View style={_styles.centeredView}>
                       <TouchableOpacity
@@ -190,9 +315,7 @@ export default function Home({navigation}) {
                           }}
                         />
                         <View style={{width: SIZES.width * 0.6}}>
-                          <Text style={styles.name}>
-                            Designer : {item.name}
-                          </Text>
+                          <Text style={styles.name}>{item.name}</Text>
                           <Text style={styles.des}>Rating : {item.rating}</Text>
                           <Text style={styles.des} numberOfLines={2}>
                             {item.des}
@@ -203,17 +326,19 @@ export default function Home({navigation}) {
                   );
                 })
               : null}
-          </ScrollView>
+          </View>
         </View>
       </View>
-      <View style={{marginTop: 10}}></View>
+      <View style={{marginTop: 10}} />
 
-      <View style={_styles.rowFlexAround}>
-        <Text style={styles.detail}>Height: 6 inches</Text>
-        <Text style={styles.detail}>Hip: 28 inches</Text>
-        <Text style={styles.detail}>Skin: White</Text>
-      </View>
-      <View style={{marginTop: 10}}></View>
+      {userData ? (
+        <View style={_styles.rowFlexAround}>
+          <Text style={styles.detail}>Height:{userData.userHeight} inches</Text>
+          <Text style={styles.detail}>Hip: {userData.userHip} inches</Text>
+          <Text style={styles.detail}>Skin: {userData.userSkin}</Text>
+        </View>
+      ) : null}
+      <View style={{marginTop: 10}} />
 
       <View style={_styles.rowFlexAround}>
         <Text style={styles.detail}>

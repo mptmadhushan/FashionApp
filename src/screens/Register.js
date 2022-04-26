@@ -23,49 +23,38 @@ import APIKit, {setClientToken} from '../constants/apiKit';
 
 import AsyncStorage from '@react-native-community/async-storage';
 const RegisterScreen = ({navigation}) => {
-  const [userEmail, setUserEmail] = useState('');
-  const [userName, setUserName] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [errortext, setErrortext] = useState('');
-  const [userNameError, setUserNameError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [name, setUserName] = useState('');
+  const [gender, setGender] = useState('');
+  const [hipSize, setHipSize] = useState('');
+  const [skin, setSkin] = useState('');
+  const [height, setHeight] = useState('');
 
   const passwordInputRef = createRef();
   const storeData = async value => {
     try {
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('@storage_Key', jsonValue);
-      navigation.navigate('LogIn');
+      await AsyncStorage.setItem('@userData', jsonValue);
+      navigation.navigate('Home');
     } catch (e) {
       // saving error
     }
   };
   const onPressLogin = () => {
-    const email = userEmail;
-    const password = userPassword;
-    const username = userName;
-    const roles = ['admin'];
-    const payload = {username, password, email, roles};
-    console.log('send data', payload);
-
-    const onSuccess = ({data}) => {
-      setLoading(false);
-      storeData(data);
-      console.log('suc', data);
+    const user = {
+      name: name,
+      gender: gender,
+      hip: hipSize,
+      skin: skin,
+      height: height,
     };
-
-    const onFailure = error => {
-      console.log('error', error);
-      setLoading(false);
-
-      // this.setState({errors: error.response.data, isLoading: false});
-    };
-
-    // Show spinner when call is made
-    setLoading(true);
-
-    APIKit.post('auth/signUp', payload).then(onSuccess).catch(onFailure);
+    const userName = name;
+    const userGender = gender;
+    const userHip = hipSize;
+    const userSkin = skin;
+    const userHeight = height;
+    const payload = {userName, userGender, userHip, userSkin, userHeight};
+    console.log('send data', user);
+    storeData(user);
   };
   return (
     <ImageBackground
@@ -106,12 +95,9 @@ const RegisterScreen = ({navigation}) => {
             /> */}
             <View style={styles.SectionStyle}>
               <TextInput
-                style={[
-                  styles.inputStyle,
-                  userNameError ? styles.inputStyleError : '',
-                ]}
+                style={styles.inputStyle}
                 onChangeText={UserName => setUserName(UserName)}
-                placeholder="First Name"
+                placeholder="Name"
                 placeholderTextColor={COLORS.white}
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -125,22 +111,11 @@ const RegisterScreen = ({navigation}) => {
             </View>
           </View>
           <View style={styles.rowFlex}>
-            {/* <Image
-              source={images.logo}
-              resizeMode="contain"
-              style={{
-                width: 20,
-                height: 20,
-              }}
-            /> */}
             <View style={styles.SectionStyle}>
               <TextInput
-                style={[
-                  styles.inputStyle,
-                  userNameError ? styles.inputStyleError : '',
-                ]}
-                onChangeText={UserEmail => setUserEmail(UserEmail)}
-                placeholder="Last Name"
+                style={styles.inputStyle}
+                onChangeText={Gender => setGender(Gender)}
+                placeholder="Gender"
                 placeholderTextColor={COLORS.white}
                 autoCapitalize="none"
                 keyboardType="email-address"
@@ -155,35 +130,58 @@ const RegisterScreen = ({navigation}) => {
           </View>
 
           <View style={styles.rowFlex}>
-            {/* <Image
-              source={icons.lock}
-              resizeMode="contain"
-              style={{
-                width: 20,
-                height: 20,
-              }}
-            /> */}
             <View style={styles.SectionStyle}>
               <TextInput
-                style={[
-                  styles.inputStyle,
-                  passwordError ? styles.inputStyleError : '',
-                ]}
-                onChangeText={UserPassword => setUserPassword(UserPassword)}
-                placeholder="Password" //12345
+                style={styles.inputStyle}
+                onChangeText={HipSize => setHipSize(HipSize)}
+                placeholder="Hip Size" //12345
                 placeholderTextColor={COLORS.white}
                 keyboardType="default"
                 ref={passwordInputRef}
                 onSubmitEditing={Keyboard.dismiss}
                 blurOnSubmit={false}
-                secureTextEntry={true}
+                // secureTextEntry={true}
+                underlineColorAndroid="#f000"
+                returnKeyType="next"
+              />
+            </View>
+          </View>
+          <View style={styles.rowFlex}>
+            <View style={styles.SectionStyle}>
+              <TextInput
+                style={styles.inputStyle}
+                onChangeText={skin => setSkin(skin)}
+                placeholder="Skin Color" //12345
+                placeholderTextColor={COLORS.white}
+                keyboardType="default"
+                ref={passwordInputRef}
+                onSubmitEditing={Keyboard.dismiss}
+                blurOnSubmit={false}
+                // secureTextEntry={true}
+                underlineColorAndroid="#f000"
+                returnKeyType="next"
+              />
+            </View>
+          </View>
+          <View style={styles.rowFlex}>
+            <View style={styles.SectionStyle}>
+              <TextInput
+                style={styles.inputStyle}
+                onChangeText={height => setHeight(height)}
+                placeholder="Height" //12345
+                placeholderTextColor={COLORS.white}
+                keyboardType="default"
+                ref={passwordInputRef}
+                onSubmitEditing={Keyboard.dismiss}
+                blurOnSubmit={false}
+                // secureTextEntry={true}
                 underlineColorAndroid="#f000"
                 returnKeyType="next"
               />
             </View>
           </View>
           <View style={styles.centerFlex}>
-            <View style={styles.centerFlex}>
+            {/* <View style={styles.centerFlex}>
               <TouchableOpacity
                 // style={styles.buttonStyle2}
                 activeOpacity={0.5}
@@ -192,12 +190,12 @@ const RegisterScreen = ({navigation}) => {
                   Don't have an account? register here.
                 </Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
             <TouchableOpacity
               style={styles.buttonStyle}
               activeOpacity={0.5}
               onPress={() => onPressLogin()}>
-              <Text style={styles.buttonTextStyle}>Register</Text>
+              <Text style={styles.buttonTextStyle}>Continue</Text>
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
@@ -254,6 +252,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 30,
     justifyContent: 'center',
+    marginTop: 10,
   },
   buttonTextStyle: {
     color: '#FFFFFF',

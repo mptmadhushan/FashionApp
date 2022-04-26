@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Star from 'react-native-star-view';
 import _styles from '../constants/styling';
 import Button from '../components/Button';
+const Designer = require('../constants/designer.json');
+import * as ImagePicker from 'react-native-image-picker';
 
 export default function Home({navigation}) {
   useEffect(() => {}, []);
@@ -53,6 +55,46 @@ export default function Home({navigation}) {
       rating: '2403.00',
     },
   ];
+  const launchImageLibrary = () => {
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchImageLibrary(options, response => {
+      console.log('Response = ', response.assets[0].uri);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        let formData = new FormData();
+        formData.append('listFile', {
+          uri: response.assets[0].uri,
+          type: 'image/jpg',
+          name: 'image.jpg',
+        });
+        fetch(`{BASE_URL}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          body: formData,
+        })
+          .then(response => response.json())
+          .then(response => {
+            console.log('response 🔥', response.flag);
+            console.log(response);
+            // storeData(response);
+          })
+          .catch(err => console.error(err));
+      }
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.mainContainer}>
@@ -131,11 +173,11 @@ export default function Home({navigation}) {
       <View style={_styles.rowFlexAround}>
         <Button
           text="Designers"
-          onPress={() => navigation.navigate('DesignerList')}
+          onPress={() => navigation.navigate('Designer')}
         />
         <Button
-          text="Categories"
-          onPress={() => navigation.navigate('Category')}
+          text="Designs"
+          onPress={() => navigation.navigate('DesignerList')}
         />
       </View>
     </View>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {
@@ -16,30 +17,104 @@ import _styles from '../constants/styling';
 import Button from '../components/Button';
 import Modal from 'react-native-modal';
 import LinearGradient from 'react-native-linear-gradient';
+const Designers = require('../constants/designer.json');
+import axios from 'axios';
+import RNLocation from 'react-native-location';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function Designer({navigation}) {
-  useEffect(() => {}, []);
-  const Designers = [
-    {
-      name: 'Obie Ankunding',
-      image: require('../assets/2.jpg'),
-      des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
+  useEffect(() => {
+    getDesigners();
+    getUserToken();
+  }, []);
+  const [userData, setUser] = useState();
 
-      rating: '3',
-    },
-    {
-      name: 'Granville Ferry',
-      des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
-      image: require('../assets/1.jpg'),
-      rating: '4',
-    },
-    {
-      name: 'Karine Wilfredo',
-      des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
-      image: require('../assets/4.jpg'),
-      rating: '2',
-    },
-  ];
+  const [newDesigners, setDesigners] = useState();
+  const [location, setLocation] = useState();
+  // const Designers2 = [
+  //   {
+  //     name: 'Obie Ankunding',
+  //     image: require('../assets/2.jpg'),
+  //     des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
+
+  //     rating: '3',
+  //   },
+  //   {
+  //     name: 'Granville Ferry',
+  //     des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
+  //     image: require('../assets/1.jpg'),
+  //     rating: '4',
+  //   },
+  //   {
+  //     name: 'Karine Wilfredo',
+  //     des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
+  //     image: require('../assets/4.jpg'),
+  //     rating: '2',
+  //   },
+  // ];
+  // RNLocation.configure({
+  //   distanceFilter: 5.0,
+  // });
+
+  // RNLocation.requestPermission({
+  //   ios: 'whenInUse',
+  //   android: {
+  //     detail: 'coarse',
+  //   },
+  // }).then(granted => {
+  //   if (granted) {
+  //     this.locationSubscription = RNLocation.subscribeToLocationUpdates(
+  //       locations => {
+  //         setLocation(locations);
+  //         /* Example location returned
+  //         {
+  //           speed: -1,
+  //           longitude: -0.1337,
+  //           latitude: 51.50998,
+  //           accuracy: 5,
+  //           heading: -1,
+  //           altitude: 0,
+  //           altitudeAccuracy: -1
+  //           floor: 0
+  //           timestamp: 1446007304457.029,
+  //           fromMockProvider: false
+  //         }
+  //         */
+  //       },
+  //     );
+  //   }
+  // });
+  const getUserToken = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@userData');
+      if (value !== null) {
+        console.log('tag', value);
+        // const newVal = JSON.stringify(value);
+        setUser(value);
+        console.log('sate', userData);
+        // After restoring token, we may need to validate it
+        return value;
+      }
+    } catch (e) {
+      console.log('Error!!!!! (Handle me properly) -> ', e);
+    }
+  };
+  const getDesigners = () => {
+    const reqData = {
+      gender: 'female',
+      event: 'wedding',
+      dress_type: '',
+      lat: 5.946,
+      lng: 80.534,
+    };
+    // console.log('🚀 ~ f reqData', reqData);
+    axios
+      .post('https://fsrc1.herokuapp.com/v1/getSimilarDesigners', reqData)
+      .then(res => {
+        console.log('hhe 🚀', res.data);
+        setDesigners(res.data);
+      });
+  };
   return (
     <View style={styles.container}>
       <Modal isVisible={false}>
@@ -90,7 +165,7 @@ export default function Designer({navigation}) {
                   return (
                     <View style={styles.cardBg} key={item.name}>
                       <ImageBackground
-                        source={item.image}
+                        source={require('../assets/4.jpg')}
                         resizeMode="cover"
                         style={{
                           width: SIZES.width,
@@ -105,12 +180,12 @@ export default function Designer({navigation}) {
                             backgroundColor: 'rgba(0,0,0,0.5)',
                             width: SIZES.width,
                           }}>
-                          <Text style={styles.titleDes}>{item.name}</Text>
-                          <Text style={styles.titleDes2}>COLOMBO</Text>
+                          <Text style={styles.titleDes}>{item.tag}</Text>
+                          <Text style={styles.titleDes2}>{item.location}</Text>
                           <Text style={styles.titleDes2}>{item.des}</Text>
                           <View style={_styles.rowFlexAround}>
                             <Star
-                              score={item.rating}
+                              score={item.popularity}
                               style={styles.starStyle}
                             />
                           </View>

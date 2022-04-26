@@ -1,5 +1,6 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -19,13 +20,39 @@ import {
   G,
   Svg,
 } from 'react-native-svg';
+import AsyncStorage from '@react-native-community/async-storage';
+
 export default function OnBoard({navigation}) {
+  const [userData, setUser] = useState('');
+  useEffect(() => {
+    getUserToken();
+  }, []);
+  const getUserToken = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@userData');
+      if (value !== null) {
+        console.log('tag', value);
+        setUser(value);
+        console.log(userData);
+        // After restoring token, we may need to validate it
+        return value;
+      }
+    } catch (e) {
+      console.log('Error!!!!! (Handle me properly) -> ', e);
+    }
+  };
+  const toRoute = () => {
+    if (userData) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Register');
+    }
+  };
   return (
     <ImageBackground
       style={styles.container}
       source={require('../assets/photo-1597175848600-5ef8d4d15c30.jpeg')}>
       <View style={styles.overlayBg}></View>
-
       <View style={styles.overlay}>
         <View style={styles.rowFlex2}>
           <Text style={styles.title2}>
@@ -38,7 +65,7 @@ export default function OnBoard({navigation}) {
             <TouchableOpacity
               // style={styles.buttonStyle2}
               activeOpacity={0.5}
-              onPress={() => navigation.navigate('Register')}
+              onPress={() => toRoute()}
               style={styles.iconBack}>
               <Icon
                 name="arrow-forward-outline"

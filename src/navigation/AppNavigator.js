@@ -8,7 +8,7 @@ import Register from '../screens/Register';
 import Measurements from '../screens/Measurements';
 import Category from '../screens/Category';
 import SubCategory from '../screens/SubCategory';
-import DesignerList from '../screens/DesignerList';
+import Designs from '../screens/Designs';
 import Designer from '../screens/Designer';
 import {TapGestureHandler} from 'react-native-gesture-handler';
 
@@ -60,7 +60,7 @@ function MainStackNavigator() {
         <Stack.Screen
           name="DesignerList"
           options={{headerShown: false}}
-          component={DesignerList}
+          component={Designs}
         />
         <Stack.Screen
           name="Designer"
