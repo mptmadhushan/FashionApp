@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {
@@ -60,26 +61,41 @@ export default function Home({navigation}) {
   ];
   const MostIt = [
     {
-      name: 'Obie Ankunding',
+      name: 'FD41',
       des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
-      image: require('../assets/3.jpg'),
-      rating: '3219.20',
+      image: {
+        uri: 'https://storage.googleapis.com/fashion-recommendation-cade6.appspot.com/images_dir/366.jpg?Expires=1651869074&GoogleAccessId=firebase-adminsdk-mnij5%40fashion-recommendation-cade6.iam.gserviceaccount.com&Signature=ZpkEVs3BjopK3pl08WjLVaS7p3NgLqEvUXwpAzTvJk8L%2FLBYPRi6q9P4KPzsjVJthSaTo3kFzz0WSSItCNKgeLEAF5MnyLJG1Lp52rnrbE8XOJoc9MH%2BBuO7LiY8d9T0Kusi7Zrg6dVnq1Ypvq0vPfkqkOAzthzJLcXKsAIQyyQwxHD7jxiPTMtcFLNOexq2GlK11Pj2wYd2pfNx%2BqhM67mbCRXGpCx2uyENfjZMzspezhmP%2Bt7WD5zt4BWzX2b%2BzHWboaTl4ofegxe7XCV%2F%2FNr%2B7M2mOA0w%2BMryVoko1KIiK5%2BORiJBiLG59%2Fj%2BL6lcpypN3m4s3faxGiy9p4QvxA%3D%3D',
+      },
+      rating: '4',
     },
     {
-      name: 'Granville Ferry',
+      name: 'FD78',
       des: 'Labore occaecat ex ex eu laborum.',
-      image: require('../assets/6.jpg'),
-      rating: '4000.21',
+      image: {
+        uri: 'https://storage.googleapis.com/fashion-recommendation-cade6.appspot.com/images_dir/152.jpg?Expires=1651869074&GoogleAccessId=firebase-adminsdk-mnij5%40fashion-recommendation-cade6.iam.gserviceaccount.com&Signature=QEcaxA7ohs9yc8HZL2WS8W9cq4orkYiAQ%2BCWIRB1mTJBZ%2FKYlz%2FnI9hrTp582MROIL91Js%2BSCYmEk7AUdzawi7PLYrfy5q4gA3n5Qn8nlo2ZF4FzbxgCOt6cTm44OriElle6qnkiJKlbTgsrDYJPwSSXZqBNsqLYCmnRAkW%2B7%2BXtrlVyTz2MW0ba%2Fq0iBhccF%2BtyKFFKSAnZBJILTlzVJpS%2F53%2Fr4LaS0M3405pJoAR%2F9rm7xGFs7txWlN9qcRV5EkG6%2FxMamPG0qubaS16Q595mePw4SGTJGZXDD1OyujGHPCHFvGU%2Fnl397tjSA%2FPDqBOSwuuJX7kyzRy4JwsJ%2BA%3D%3D',
+      },
+      rating: '3',
     },
     {
-      name: 'Karine Wilfredo',
+      name: 'FD22',
       des: 'Fugiat ex in eiusmod sunt.',
-      image: require('../assets/5.jpg'),
-      rating: '2403.00',
+      image: {
+        uri: 'https://colorauction.com/media/catalog/product/cache/1/thumbnail/600x/17f82f742ffe127f42dca9de82fb58b1/i/n/indigo_ks_5_1.jpg',
+      },
+      rating: '5',
     },
   ];
   const handleSubmit = () => {
     const reqData = {
+      gender: 'male',
+      event: 'work',
+      dress_type: 'formal',
+      article_type: 'full dress',
+      height: 160,
+      hip_size: 90,
+      img_url: 'data:image/jpeg;base64,' + imageBase,
+    };
+    const data = {
       gender: 'male',
       event: 'work',
       dress_type: 'formal',
@@ -245,8 +261,8 @@ export default function Home({navigation}) {
           </View>
           <View style={_styles.rowFlexAround}>
             <Button
-              style={styles.dropdown4BtnStyle}
-              text="selectimage"
+              style={styles.dropdown4DropdownStyle}
+              text="select Image"
               onPress={() => captureTradeLicenseImage()}
             />
             <SelectDropdown
@@ -282,7 +298,7 @@ export default function Home({navigation}) {
         </View>
         <View>
           <View style={_styles.centeredView}>
-            {resImage ? (
+            {/* {resImage ? (
               <FastImage
                 style={{
                   width: SIZES.width * 0.9,
@@ -296,7 +312,7 @@ export default function Home({navigation}) {
                 }}
                 resizeMode={FastImage.resizeMode.contain}
               />
-            ) : null}
+            ) : null} */}
             {Designs
               ? Designs.map(item => {
                   return (
@@ -307,10 +323,10 @@ export default function Home({navigation}) {
                         onPress={() => navigation.navigate('Register')}>
                         <Image
                           source={item.image}
-                          resizeMode="cover"
+                          resizeMode="contain"
                           style={{
                             width: SIZES.width * 0.2,
-                            height: SIZES.width * 0.2,
+                            height: SIZES.width * 0.3,
                             borderRadius: 20,
                           }}
                         />
@@ -331,18 +347,18 @@ export default function Home({navigation}) {
       </View>
       <View style={{marginTop: 10}} />
 
-      {userData ? (
+      {/* {userData ? (
         <View style={_styles.rowFlexAround}>
           <Text style={styles.detail}>Height:{userData.userHeight} inches</Text>
           <Text style={styles.detail}>Hip: {userData.userHip} inches</Text>
           <Text style={styles.detail}>Skin: {userData.userSkin}</Text>
         </View>
-      ) : null}
+      ) : null} */}
       <View style={{marginTop: 10}} />
 
       <View style={_styles.rowFlexAround}>
         <Text style={styles.detail}>
-          Updated on: Sat Sep 19 2020 13:41:14 GMT+0530
+          Updated on: Thu May 05 2022 02:15:14 GMT+0530
         </Text>
       </View>
     </View>
@@ -370,7 +386,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // alignItems: 'flex-start',
     borderRadius: 30,
-    padding: 20,
+    padding: 10,
     backgroundColor: COLORS.white,
     shadowColor: COLORS.black,
     shadowOffset: {

@@ -20,17 +20,17 @@ export default function Home({navigation}) {
   useEffect(() => {}, []);
   const Designers = [
     {
-      name: 'Obie Ankunding',
+      name: 'FD08',
       image: require('../assets/2.jpg'),
       rating: '3',
     },
     {
-      name: 'Granville Ferry',
+      name: 'FD54',
       image: require('../assets/1.jpg'),
       rating: '4',
     },
     {
-      name: 'Karine Wilfredo',
+      name: 'FD79',
       image: require('../assets/4.jpg'),
       rating: '2',
     },
@@ -39,20 +39,26 @@ export default function Home({navigation}) {
     {
       name: 'Obie Ankunding',
       des: 'Aute sunt consequat esse minim proident reprehenderit mollit.',
-      image: require('../assets/3.jpg'),
+      image: {
+        uri: 'https://storage.googleapis.com/fashion-recommendation-cade6.appspot.com/images_dir/228.jpg?Expires=1651870870&GoogleAccessId=firebase-adminsdk-mnij5%40fashion-recommendation-cade6.iam.gserviceaccount.com&Signature=ey8Afoy3mFrHi%2F7jpVnVcmx7sRZefZ8ePxISYKjUJcOhGvVlHkpyuNVSlxsmNOOQgDhvcsXTOOF0X084rXwjkp4pe4VS3t26QsD3gyjrglff4Rk9nI1Ce3xtXyXhSygmTF%2FhG%2BOwJZZsAB%2B6aw91rQW270Pkd%2BFOe9eY54hFAsfpv%2FEw%2F7EAE5sjdW18An3BRc%2F17leQ44WhS%2FugxvbduposCK3csN8dTIu1lQru0Li4c9iK%2F%2Bd%2BbNFgVq%2Bc4uem70DFENzVm%2FNrGr%2FmUmKQwthro5976TJ1khgBTb3iedcY4L33HQNE%2FT4XD63kkO%2FyZOtWAGFKpQ1u9mDwsKlvbQ%3D%3D',
+      },
       rating: '3219.20',
-    },
-    {
-      name: 'Granville Ferry',
-      des: 'Labore occaecat ex ex eu laborum.',
-      image: require('../assets/6.jpg'),
-      rating: '4000.21',
     },
     {
       name: 'Karine Wilfredo',
       des: 'Fugiat ex in eiusmod sunt.',
-      image: require('../assets/5.jpg'),
+      image: {
+        uri: 'https://storage.googleapis.com/fashion-recommendation-cade6.appspot.com/images_dir/359.jpg?Expires=1651871062&GoogleAccessId=firebase-adminsdk-mnij5%40fashion-recommendation-cade6.iam.gserviceaccount.com&Signature=H85u%2BqHi6hxXqeRqnngSL55VxHgdr7W11Vko%2FqCgMnnCXkl3ydjZay1WYpCGLcIu6S7tRoQI8YGtMfW5yqhaMTRA3kVtHBwhI1ozEjydUQiAh2U5vKhfyGAakpfv1NlNgTnJeW6nemDEtzwqtBQGr0w3h0QNwoD08KTN3DxrYzsRK4RgmuKDTYICfI9cVepBE9AYn24ZEaVEYmNWWNpsrGeV3Cxv3%2FOGOJsdBMZUe92Tyrtw2qFvJ9cEHeg7RKaSqmgV8i5i80kOtfPDvDGy5IKU97k5rM%2BZwq252HMd04BsOhwDXVaXqitFmAK0%2Bh3xZp4w2Mk9tJ8%2Fs37v9QSkLw%3D%3D',
+      },
       rating: '2403.00',
+    },
+    {
+      name: 'Granville Ferry',
+      des: 'Labore occaecat ex ex eu laborum.',
+      image: {
+        uri: 'https://storage.googleapis.com/fashion-recommendation-cade6.appspot.com/images_dir/471.jpg?Expires=1651870871&GoogleAccessId=firebase-adminsdk-mnij5%40fashion-recommendation-cade6.iam.gserviceaccount.com&Signature=LYPJJ%2Bbn8JI0%2FcyUfX6vAp6jImUWe16Ch1lofs4w4ytL6qLn8JwifqMD07F2iVsDZdb7maP6RVwC10eaKfJGhNq4GqEEna%2F3I2dU76AiyZhn8VrvG9GyfSB4OlHAKEgAqjH9TShk%2BONVjDA7HDRKnPe0iuoKqTHQ5kHcW8%2Ba1s5U6QwvhfLCRgiTclfL2njZcrIBajRTNyx5asHBjy3JJK7qxJ1wvSy0CkAkIajkPG4NGpd7cchQcHNkDL%2BRISYcA03acIwDPLoRbcBAqQEP9uRLpnBAYtejHT2XmFwvxaEC2dfVHFCkEIkki6pfvevCgB4QsT%2F34o%2FIX92s%2FDh0Cg%3D%3D',
+      },
+      rating: '4000.21',
     },
   ];
   const launchImageLibrary = () => {
@@ -161,7 +167,6 @@ export default function Home({navigation}) {
                         {item.des}
                       </Text>
                       <Text style={styles.name}>{item.name}</Text>
-                      <Text style={styles.price}>LKR.{item.rating}</Text>
                     </View>
                   );
                 })

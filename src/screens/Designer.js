@@ -201,7 +201,7 @@ export default function Designer({navigation}) {
 
       <View style={_styles.rowFlexAround}>
         <View>
-          <Text style={styles.des}>Total{'\n'}LKR.1200.00</Text>
+          {/* <Text style={styles.des}>{'\n'}LKR.1200.00</Text> */}
         </View>
         <Button
           text="Make an Appointment"

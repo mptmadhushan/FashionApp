@@ -42,7 +42,7 @@ export default function OnBoard({navigation}) {
     }
   };
   const toRoute = () => {
-    if (userData) {
+    if (!userData) {
       navigation.navigate('Home');
     } else {
       navigation.navigate('Register');
